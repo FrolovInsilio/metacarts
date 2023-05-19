@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мета карты</title>
+
+</head>
+
+<body>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Roboto:400,500&display=swap');
+        @import url('https://fonts.googleapis.com/css?family=Playfair+Display:400,600,700,800&display=swap');
+
+        * {
+            margin: 0;
+        }
+
+        body {
+            font-family: 'Roboto', monospace;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        h1 {
+            font-family: Playfair Display;
+            font-size: 4vw;
+            margin-top: 2em;
+            margin-bottom: 2em;
+            color: #333;
+        }
+
+        h1:after {
+            content: "";
+            display: block;
+            height: 0.3em;
+            width: 100%;
+            top: -0.4em;
+            z-index: -1;
+            position: relative;
+            background: rgba(169, 132, 255, 0.281);
+        }
+
+        .card-box {
+            display: block;
+            background: #fff;
+            height: 196px;
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .card-single {
+            height: 196px;
+            width: 126px;
+            border-radius: 6px;
+            /* background: rgb(169, 132, 255); */
+            background: url('img/shirt/01.jpg') center / cover no-repeat;
+            border: 5px solid #fff;
+            box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.07);
+            position: absolute;
+            left: calc(50% - 100px);
+            transform: translateX(calc(var(--cardindex) * 1vw)) rotate(calc(var(--cardindex) * 0.7deg));
+            transform-origin: 50% 50%;
+            transition: 0.6s;
+            animation: active1 1.6s ease-in-out reverse;
+            cursor: pointer;
+        }
+
+        .card-single:hover {
+            transform: translateX(calc(var(--cardindex) * 1vw - 30px)) rotate(calc(var(--cardindex) * 0.7deg));
+            transform-origin: 50% 50%;
+        }
+
+        .card-single.active {
+            transform: translateX(calc(var(--cardindex) * 0% - 0px)) rotate(calc(var(--cardindex) * 0deg)) rotateY(180deg) scale(1.8);
+            animation: active 1.6s ease-in-out forwards;
+            transform-origin: 50% 50%;
+
+
+        }
+
+        @keyframes active {
+
+            0% {
+                transform: translateX(calc(var(--cardindex) * 1vw - 30px)) rotate(calc(var(--cardindex) * 0.7deg)) rotateY(0deg) scale(1);
+            }
+
+
+            30% {
+                transform: translateX(calc(var(--cardindex) * 1vw - 180px)) rotate(calc(var(--cardindex) * 0.7deg)) rotateY(0deg) scale(1);
+            }
+
+            30% {
+                transform: translateX(calc(var(--cardindex) * 1vw - 180px)) rotate(calc(var(--cardindex) * 0deg)) rotateY(0deg) scale(1);
+            }
+
+            100% {
+                transform: translateX(calc(var(--cardindex) * 0% - 0px)) rotate(calc(var(--cardindex) * 0deg)) rotateY(180deg) scale(1.5);
+                z-index: 1;
+                box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.07);
+            }
+
+        }
+
+        @keyframes active1 {
+
+            0% {
+                transform: translateX(calc(var(--cardindex) * 1vw - 0px)) rotate(calc(var(--cardindex) * 0.7deg)) rotateY(0deg) scale(1);
+                box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.07);
+            }
+
+
+            30% {
+                transform: translateX(calc(var(--cardindex) * 1vw - 180px)) rotate(calc(var(--cardindex) * 0.7deg)) rotateY(0deg) scale(1);
+            }
+
+            30% {
+                transform: translateX(calc(var(--cardindex) * 1vw - 180px)) rotate(calc(var(--cardindex) * 0deg)) rotateY(0deg) scale(1);
+            }
+
+            100% {
+                transform: translateX(calc(var(--cardindex) * 0% - 0px)) rotate(calc(var(--cardindex) * 0deg)) rotateY(180deg) scale(1.5);
+                z-index: 1;
+                box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.1);
+            }
+
+        }
+
+        .content-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transform: rotateY(180deg);
+            opacity: 0;
+            transition: 0.6s;
+            transition-delay: 0.3s;
+            height: 100%;
+        }
+
+        .active .content-card {
+            opacity: 1;
+            transition-delay: 0.8s;
+        }
+
+        .button-cards {
+            margin-top: 150px;
+            margin-bottom: 150px;
+            font-size: 16px;
+            color: #fff;
+            padding: 15px 25px 15px 25px;
+            background-color: rgb(121, 85, 207);
+            text-decoration: none;
+            transform: translateY(0px);
+            opacity: 1;
+            transition: 0.6s ease-out;
+            transition-delay: 1.6s;
+            cursor: pointer;
+        }
+
+        .button-cards.hidden {
+            transform: translateY(100px);
+            opacity: 0;
+            transition-delay: 0s;
+        }
+    </style>
+    <h1>Choose your Card:</h1>
+    <div class="card-box">
+
+        <div class="card-single" style="--cardindex:-22;--cardrot:22">
+            <div class="content-card">
+
+            </div>
+        </div>
+        <div class="card-single" style="--cardindex:-21;--cardrot:21">
+            <div class="content-card">
+
+            </div>
+        </div>
+        <div class="card-single" style="--cardindex:-20;--cardrot:20">
+            <div class="content-card">
+
+            </div>
+        </div>
+        <div class="card-single" style="--cardindex:-19;--cardrot:19">
+            <div class="content-card">
+
+            </div>
+        </div>
+        <div class="card-single" style="--cardindex:-18;--cardrot:18">
+            <div class="content-card">
+
+            </div>
+        </div>
+        <div class="card-single" style="--cardindex:-17;--cardrot:17">
+            <div class="content-card">
+
+            </div>
+        </div>
+        <div class="card-single" style="--cardindex:-16;--cardrot:16">
+            <div class="content-card">
+
+            </div>
+        </div>
+        <div class="card-single" style="--cardindex:-15;--cardrot:15">
+            <div class="content-card">
+
+            </div>
+        </div>
+        <div class="card-single" style="--cardindex:-14;--cardrot:14">
+            <div class="content-card">
+
+            </div>
+        </div>
+        <div class="card-single" style="--cardindex:-13;--cardrot:13">
+            <div class="content-card">
+
+            </div>
+        </div>
+        <div class="card-single" style="--cardindex:-12;--cardrot:12">
+            <div class="content-card">
+
+            </div>
+        </div>
+        <div class="card-single" style="--cardindex:-11;--cardrot:11">
+            <div class="content-card">
+
+            </div>
+        </div>
+        <div class="card-single" style="--cardindex:-10;--cardrot:10">
+            <div class="content-card">
+
+            </div>
+        </div>
+        <div class="card-single" style="--cardindex:-9;--cardrot:9">
+            <div class="content-card">
+
+            </div>
+        </div>
+        <div class="card-single" style="--cardindex:-8;--cardrot:8">
+            <div class="content-card">
+
+            </div>
+        </div>
+        <div class="card-single" style="--cardindex:-7;--cardrot:7">
+            <div class="content-card">
+
+            </div>
+        </div>
+        <div class="card-single" style="--cardindex:-6;--cardrot:6">
+            <div class="content-card">
+
+            </div>
+        </div>
+        <div class="card-single" style="--cardindex:-5;--cardrot:5">
+            <div class="content-card">
+
+            </div>
+        </div>
+        <div class="card-single" style="--cardindex:-4;--cardrot:4">
+            <div class="content-card">
+
+            </div>
+        </div>
+        <div class="card-single" style="--cardindex:-3;--cardrot:3">
+            <div class="content-card">
+
+            </div>
+        </div>
+        <div class="card-single" style="--cardindex:-2;--cardrot:2">
+            <div class="content-card">
+
+            </div>
+        </div>
+        <div class="card-single" style="--cardindex:-1;--cardrot:1">
+            <div class="content-card">
+
+            </div>
+        </div>
+        <div class="card-single" style="--cardindex: 0;--cardrot:0">
+            <div class="content-card">
+
+            </div>
+        </div>
+        <div class="card-single" style="--cardindex: 1;--cardrot:1">
+            <div class="content-card">
+
+            </div>
+        </div>
+        <div class="card-single" style="--cardindex: 2;--cardrot:2">
+            <div class="content-card">
+
+            </div>
+        </div>
+        <div class="card-single" style="--cardindex: 3;--cardrot:3">
+            <div class="content-card">
+
+            </div>
+        </div>
+        <div class="card-single" style="--cardindex: 4;--cardrot:4">
+            <div class="content-card">
+
+            </div>
+        </div>
+        <div class="card-single" style="--cardindex: 5;--cardrot:5">
+            <div class="content-card">
+
+            </div>
+        </div>
+        <div class="card-single" style="--cardindex: 6;--cardrot:6">
+            <div class="content-card">
+
+            </div>
+        </div>
+        <div class="card-single" style="--cardindex: 7;--cardrot:7">
+            <div class="content-card">
+
+            </div>
+        </div>
+        <div class="card-single" style="--cardindex: 8;--cardrot:8">
+            <div class="content-card">
+
+            </div>
+        </div>
+        <div class="card-single" style="--cardindex: 9;--cardrot:9">
+            <div class="content-card">
+
+            </div>
+        </div>
+        <div class="card-single" style="--cardindex: 10;--cardrot:10">
+            <div class="content-card">
+
+            </div>
+        </div>
+        <div class="card-single" style="--cardindex: 11;--cardrot:11">
+            <div class="content-card">
+
+            </div>
+        </div>
+        <div class="card-single" style="--cardindex: 12;--cardrot:12">
+            <div class="content-card">
+
+            </div>
+        </div>
+        <div class="card-single" style="--cardindex: 13;--cardrot:13">
+            <div class="content-card">
+
+            </div>
+        </div>
+        <div class="card-single" style="--cardindex: 14;--cardrot:14">
+            <div class="content-card">
+
+            </div>
+        </div>
+        <div class="card-single" style="--cardindex: 15;--cardrot:15">
+            <div class="content-card">
+
+            </div>
+        </div>
+        <div class="card-single" style="--cardindex: 16;--cardrot:16">
+            <div class="content-card">
+
+            </div>
+        </div>
+        <div class="card-single" style="--cardindex: 17;--cardrot:17">
+            <div class="content-card">
+
+            </div>
+        </div>
+        <div class="card-single" style="--cardindex: 18;--cardrot:18">
+            <div class="content-card">
+
+            </div>
+        </div>
+        <div class="card-single" style="--cardindex: 19;--cardrot:19">
+            <div class="content-card">
+
+            </div>
+        </div>
+        <div class="card-single" style="--cardindex: 20;--cardrot:20">
+            <div class="content-card">
+
+            </div>
+        </div>
+        <div class="card-single" style="--cardindex: 21;--cardrot:21">
+            <div class="content-card">
+
+            </div>
+        </div>
+        <div class="card-single" style="--cardindex: 22;--cardrot:22">
+            <div class="content-card">
+
+            </div>
+        </div>
+    </div>
+    <div class="button-cards hidden" href="">I dont like this Card</div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        const quotes = []; // массив изображений
+
+        fillArrayFromFolder('img/suit/', quotes, function () {
+            console.log(quotes);
+        });
+
+        function fillArrayFromFolder(folderPath, array, callback) {
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', folderPath);
+            xhr.responseType = 'document';
+
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    const doc = xhr.response;
+                    const links = doc.querySelectorAll('a');
+                    links.forEach(function (link) {
+                        const href = link.getAttribute('href');
+                        if (href.match(/\.(jpe?g|png|gif)$/)) {
+                            array.push(href); // убираем первые два символа
+                        }
+                    });
+                    callback(); // вызываем колбэк после того, как массив заполнен
+                }
+            };
+
+            xhr.send();
+        }
+
+
+    </script>
+    <script>
+        $(function () {
+            $(".card-single").click(function () {
+                $(".active").removeClass("active");
+                $(this).toggleClass("active");
+                $(".card-box").toggleClass("active-inside");
+            });
+
+        });
+
+        $(function () {
+            $(".card-single").click(function () {
+                $(".button-cards").removeClass("hidden");
+            });
+
+        });
+        $(function () {
+            $(".button-cards").click(function () {
+                $(".button-cards").addClass("hidden");
+                $(".active").removeClass("active");
+            });
+
+        });
+
+
+        // Обработчик события "click" для элементов с классом "card-single"
+        $(".card-single").on("click", function () {
+            // Генерация случайного индекса
+            var index = Math.floor(Math.random() * quotes.length);
+
+            // Получение элемента массива по индексу
+            var quote = quotes[index];
+
+            // Вывод элемента массива в консоль
+            console.log(quote);
+
+            // Установка текста и стиля фона для элемента .content-card
+            var contentCard = $(".content-card", this);
+            contentCard.css({
+                backgroundImage: "url('http://localhost/metacards/img/suit/" + quote + "')",
+                backgroundSize: "cover",
+                backgroundRepeat: "no-repeat"
+            });
+        });
+    </script>
+</body>
+
+</html>
